@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import type {Request, Response} from "express";
 import userModel from "../model/user.model.js";
 import bcrypt from 'bcrypt'
-import tokenGenerator from "../services/token-generator.js";
+import tokenManager from "../services/token-manager.js";
 
 export const registerUser = asyncHandler(async (
     req: Request,
@@ -44,7 +44,7 @@ export const registerUser = asyncHandler(async (
         _id: user.id,
         name: user.name,
         email: user.email,
-        token: tokenGenerator.generate(user.id)
+        token: tokenManager.generate(user.id)
     })
 })
 
@@ -69,7 +69,7 @@ export const loginUser = asyncHandler(async (
             _id: user.id,
             name: user.name,
             email: user.email,
-            token: tokenGenerator.generate(user.id)
+            token: tokenManager.generate(user.id)
         })
     } else {
         res.status(400)

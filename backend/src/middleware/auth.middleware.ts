@@ -1,7 +1,7 @@
-import jwt, {type JwtPayload} from 'jsonwebtoken'
 import asyncHandler from "express-async-handler";
 import type {NextFunction, Request, Response} from "express";
 import userModel from "../model/user.model.js";
+import tokenManager from "../services/token-manager.js";
 
 const auth = asyncHandler(async (
     req: Request,
@@ -20,7 +20,7 @@ const auth = asyncHandler(async (
     let decodedToken
 
     try {
-        decodedToken = jwt.verify(token, process.env.JWT_SECRET || '') as JwtPayload
+        decodedToken = tokenManager.verify(token)
     } catch (e: any) {
         res.status(401)
         throw new Error('Not authenticated.')
