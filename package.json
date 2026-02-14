@@ -1,0 +1,26 @@
+{
+  "name": "mern",
+  "version": "1.0.0",
+  "description": "This project represents the final project of the course CT70A9140 - Software Development Skills: Full-Stack.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "backend:dev": "node --watch backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marek-mikula/CT70A9140-mern.git"
+  },
+  "keywords": [],
+  "author": "Marek Mikula",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marek-mikula/CT70A9140-mern/issues"
+  },
+  "homepage": "https://github.com/marek-mikula/CT70A9140-mern#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.2.1"
+  }
+}

@@ -1,0 +1,12 @@
+services:
+  node:
+    container_name: mern-node
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    networks:
+      - mern
+networks:
+  mern:
