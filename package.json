@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "This project represents the final project of the course CT70A9140 - Software Development Skills: Full-Stack.",
   "scripts": {
-    "backend:dev": "npm run dev --workspace=backend"
+    "backend:dev": "npm run dev --workspace=backend",
+    "frontend:dev": "npm run dev --workspace=frontend"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/marek-mikula/CT70A9140-mern#readme",
   "workspaces": [
-    "backend"
+    "backend",
+    "frontend"
   ]
 }

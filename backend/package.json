@@ -1,4 +1,5 @@
 {
+  "name": "backend",
   "main": "server.ts",
   "type": "module",
   "scripts": {
