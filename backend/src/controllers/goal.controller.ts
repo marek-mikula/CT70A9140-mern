@@ -1,9 +1,10 @@
 import expressAsyncHandler from "express-async-handler";
 import goalModel from "../model/goal.model.ts";
+import type {Request, Response} from "express";
 
 export const getGoals = expressAsyncHandler(async (
-    req,
-    res
+    req: Request,
+    res: Response
 ) => {
     const goals = await goalModel.find()
 
@@ -11,8 +12,8 @@ export const getGoals = expressAsyncHandler(async (
 })
 
 export const storeGoal = expressAsyncHandler(async (
-    req,
-    res
+    req: Request,
+    res: Response
 ) => {
     const title = req.body.title
 
@@ -27,8 +28,8 @@ export const storeGoal = expressAsyncHandler(async (
 })
 
 export const getGoal = expressAsyncHandler(async (
-    req,
-    res
+    req: Request,
+    res: Response
 ) => {
     const id = req.params.id
     const goal = await goalModel.findById(id)
@@ -42,8 +43,8 @@ export const getGoal = expressAsyncHandler(async (
 })
 
 export const updateGoal = expressAsyncHandler(async (
-    req,
-    res
+    req: Request,
+    res: Response
 ) => {
     const id = req.params.id
     const title = req.body.title
@@ -67,8 +68,8 @@ export const updateGoal = expressAsyncHandler(async (
 })
 
 export const deleteGoal = expressAsyncHandler(async (
-    req,
-    res
+    req: Request,
+    res: Response
 ) => {
     const id = req.params.id
     const goal = await goalModel.findByIdAndDelete(id)
