@@ -3,8 +3,9 @@ import dotenv from 'dotenv'
 import errorMiddleware from "./src/middleware/error.middleware.js";
 import goalRoutes from "./src/routes/goal.routes.js";
 import {connectDb} from "./src/config/db.js";
+import path from 'path';
 
-dotenv.config()
+dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 
 connectDb()
 
