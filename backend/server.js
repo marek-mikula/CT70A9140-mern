@@ -2,8 +2,11 @@ import express from 'express'
 import dotenv from 'dotenv'
 import errorMiddleware from "./src/middleware/error.middleware.js";
 import goalRoutes from "./src/routes/goal.routes.js";
+import {connectDb} from "./src/config/db.js";
 
 dotenv.config()
+
+connectDb()
 
 const port = process.env.PORT || 8080
 const app = express()
