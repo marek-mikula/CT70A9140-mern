@@ -1,8 +1,8 @@
 import expressAsyncHandler from "express-async-handler";
 import type {Request, Response} from "express";
-import jwt from 'jsonwebtoken'
 import userModel from "../model/user.model.js";
 import bcrypt from 'bcrypt'
+import tokenGenerator from "../services/token-generator.js";
 
 export const registerUser = expressAsyncHandler(async (
     req: Request,
@@ -51,7 +51,29 @@ export const loginUser = expressAsyncHandler(async (
     req: Request,
     res: Response
 ) => {
-    res.status(200).json({})
+    const {
+        email,
+        password
+    } = req.body
+
+    if (!email || !password) {
+        res.status(400)
+        throw new Error('Please add email and password.')
+    }
+
+    const user = await userModel.findOne({email})
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+        res.status(200).json({
+            _id: user.id,
+            name: user.name,
+            email: user.email,
+            token: tokenGenerator.generate(user.id)
+        })
+    } else {
+        res.status(400)
+        throw new Error('Invalid credentials.')
+    }
 })
 
 export const getMe = expressAsyncHandler(async (
