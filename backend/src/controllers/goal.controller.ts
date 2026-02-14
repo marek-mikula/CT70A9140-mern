@@ -1,8 +1,8 @@
-import expressAsyncHandler from "express-async-handler";
+import asyncHandler from "express-async-handler";
 import goalModel from "../model/goal.model.ts";
 import type {Request, Response} from "express";
 
-export const getGoals = expressAsyncHandler(async (
+export const getGoals = asyncHandler(async (
     req: Request,
     res: Response
 ) => {
@@ -11,7 +11,7 @@ export const getGoals = expressAsyncHandler(async (
     res.status(200).json(goals)
 })
 
-export const storeGoal = expressAsyncHandler(async (
+export const storeGoal = asyncHandler(async (
     req: Request,
     res: Response
 ) => {
@@ -27,7 +27,7 @@ export const storeGoal = expressAsyncHandler(async (
     res.status(200).json(goal)
 })
 
-export const getGoal = expressAsyncHandler(async (
+export const getGoal = asyncHandler(async (
     req: Request,
     res: Response
 ) => {
@@ -42,7 +42,7 @@ export const getGoal = expressAsyncHandler(async (
     res.status(200).json(goal)
 })
 
-export const updateGoal = expressAsyncHandler(async (
+export const updateGoal = asyncHandler(async (
     req: Request,
     res: Response
 ) => {
@@ -67,7 +67,7 @@ export const updateGoal = expressAsyncHandler(async (
     res.status(200).json(goal)
 })
 
-export const deleteGoal = expressAsyncHandler(async (
+export const deleteGoal = asyncHandler(async (
     req: Request,
     res: Response
 ) => {

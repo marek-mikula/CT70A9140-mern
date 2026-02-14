@@ -1,10 +1,10 @@
-import expressAsyncHandler from "express-async-handler";
+import asyncHandler from "express-async-handler";
 import type {Request, Response} from "express";
 import userModel from "../model/user.model.js";
 import bcrypt from 'bcrypt'
 import tokenGenerator from "../services/token-generator.js";
 
-export const registerUser = expressAsyncHandler(async (
+export const registerUser = asyncHandler(async (
     req: Request,
     res: Response
 ) => {
@@ -48,7 +48,7 @@ export const registerUser = expressAsyncHandler(async (
     })
 })
 
-export const loginUser = expressAsyncHandler(async (
+export const loginUser = asyncHandler(async (
     req: Request,
     res: Response
 ) => {
@@ -77,9 +77,15 @@ export const loginUser = expressAsyncHandler(async (
     }
 })
 
-export const getMe = expressAsyncHandler(async (
+export const getMe = asyncHandler(async (
     req: Request,
     res: Response
 ) => {
-    res.status(200).json({})
+    const user = (await userModel.findById(req.user!.id))!
+
+    res.status(200).json({
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+    })
 })

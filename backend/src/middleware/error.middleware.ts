@@ -1,6 +1,6 @@
 import type {NextFunction, Request, Response} from "express";
 
-const errorMiddleware = (
+const handleErrors = (
     err: Error,
     req: Request,
     res: Response,
@@ -16,4 +16,4 @@ const errorMiddleware = (
         })
 }
 
-export default errorMiddleware
+export default handleErrors

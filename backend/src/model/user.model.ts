@@ -1,5 +1,12 @@
 import { Schema, model } from 'mongoose';
 
+export interface User {
+    id: string
+    name: string
+    email: string
+    password: string
+}
+
 const schema = new Schema({
     name: {
         type: String,
