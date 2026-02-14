@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import { Schema, model } from 'mongoose';
 
-const goalSchema = mongoose.Schema({
+const schema = new Schema({
     title: {
         type: String,
         required: [true, 'Please add a title of the goal.'],
@@ -9,4 +9,4 @@ const goalSchema = mongoose.Schema({
     timestamps: true,
 })
 
-export default mongoose.model('Goal', goalSchema)
+export default model('Goal', schema)

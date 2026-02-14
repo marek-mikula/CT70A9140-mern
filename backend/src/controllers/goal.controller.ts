@@ -1,26 +1,35 @@
 import expressAsyncHandler from "express-async-handler";
-import goalModel from "../model/goal.model.js";
+import goalModel from "../model/goal.model.ts";
 
-export const getGoals = expressAsyncHandler(async (req, res) => {
+export const getGoals = expressAsyncHandler(async (
+    req,
+    res
+) => {
     const goals = await goalModel.find()
 
     res.status(200).json(goals)
 })
 
-export const storeGoal = expressAsyncHandler(async (req, res) => {
+export const storeGoal = expressAsyncHandler(async (
+    req,
+    res
+) => {
     const title = req.body.title
 
-    if (! title) {
+    if (!title) {
         res.status(400)
         throw new Error('Please add a title.')
     }
 
-    const goal = await goalModel.create({ title })
+    const goal = await goalModel.create({title})
 
     res.status(200).json(goal)
 })
 
-export const getGoal = expressAsyncHandler(async (req, res) => {
+export const getGoal = expressAsyncHandler(async (
+    req,
+    res
+) => {
     const id = req.params.id
     const goal = await goalModel.findById(id)
 
@@ -32,11 +41,14 @@ export const getGoal = expressAsyncHandler(async (req, res) => {
     res.status(200).json(goal)
 })
 
-export const updateGoal = expressAsyncHandler(async (req, res) => {
+export const updateGoal = expressAsyncHandler(async (
+    req,
+    res
+) => {
     const id = req.params.id
     const title = req.body.title
 
-    if (! title) {
+    if (!title) {
         res.status(400)
         throw new Error('Please add a title.')
     }
@@ -54,7 +66,10 @@ export const updateGoal = expressAsyncHandler(async (req, res) => {
     res.status(200).json(goal)
 })
 
-export const deleteGoal = expressAsyncHandler(async (req, res) => {
+export const deleteGoal = expressAsyncHandler(async (
+    req,
+    res
+) => {
     const id = req.params.id
     const goal = await goalModel.findByIdAndDelete(id)
 
