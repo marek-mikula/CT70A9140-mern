@@ -43,7 +43,8 @@ export const registerUser = expressAsyncHandler(async (
     res.status(201).json({
         _id: user.id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        token: tokenGenerator.generate(user.id)
     })
 })
 
