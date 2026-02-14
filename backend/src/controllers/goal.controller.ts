@@ -6,7 +6,9 @@ export const getGoals = asyncHandler(async (
     req: Request,
     res: Response
 ) => {
-    const goals = await goalModel.find()
+    const goals = await goalModel.find({
+        user: req.user!.id
+    })
 
     res.status(200).json(goals)
 })
@@ -22,7 +24,10 @@ export const storeGoal = asyncHandler(async (
         throw new Error('Please add a title.')
     }
 
-    const goal = await goalModel.create({title})
+    const goal = await goalModel.create({
+        title,
+        user: req.user!.id
+    })
 
     res.status(200).json(goal)
 })
@@ -32,7 +37,10 @@ export const getGoal = asyncHandler(async (
     res: Response
 ) => {
     const id = req.params.id
-    const goal = await goalModel.findById(id)
+    const goal = await goalModel.findOne({
+        _id: id,
+        user: req.user!.id
+    })
 
     if (!goal) {
         res.status(404)
@@ -54,7 +62,10 @@ export const updateGoal = asyncHandler(async (
         throw new Error('Please add a title.')
     }
 
-    const goal = await goalModel.findById(id)
+    const goal = await goalModel.findOne({
+        _id: id,
+        user: req.user!.id,
+    })
 
     if (!goal) {
         res.status(404)
@@ -72,7 +83,10 @@ export const deleteGoal = asyncHandler(async (
     res: Response
 ) => {
     const id = req.params.id
-    const goal = await goalModel.findByIdAndDelete(id)
+    const goal = await goalModel.findOneAndDelete({
+        _id: id,
+        user: req.user!.id
+    })
 
     if (!goal) {
         res.status(404)
