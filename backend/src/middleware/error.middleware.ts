@@ -9,7 +9,7 @@ const handleErrors = (
     const isProduction = process.env.NODE_ENV === 'production'
 
     res
-        .status(res.statusCode ?? 500)
+        .status(res.statusCode === 200 ? 500 : res.statusCode)
         .json({
             message: err.message,
             trace: isProduction ? null : err.stack

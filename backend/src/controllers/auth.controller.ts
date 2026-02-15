@@ -41,7 +41,7 @@ export const registerUser = asyncHandler(async (
     }
 
     res.status(201).json({
-        _id: user.id,
+        id: user.id,
         name: user.name,
         email: user.email,
         token: tokenManager.generate(user.id)
@@ -66,7 +66,7 @@ export const loginUser = asyncHandler(async (
 
     if (user && (await bcrypt.compare(password, user.password))) {
         res.status(200).json({
-            _id: user.id,
+            id: user.id,
             name: user.name,
             email: user.email,
             token: tokenManager.generate(user.id)
@@ -84,7 +84,7 @@ export const getMe = asyncHandler(async (
     const user = (await userModel.findById(req.user!.id))!
 
     res.status(200).json({
-        _id: user.id,
+        id: user.id,
         name: user.name,
         email: user.email,
     })

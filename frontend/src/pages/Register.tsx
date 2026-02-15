@@ -1,4 +1,8 @@
-import {type ChangeEvent, type SubmitEvent, useState} from "react";
+import {type ChangeEvent, type SubmitEvent, useEffect, useState} from "react";
+import {useAppSelector, useAppDispatch} from "../app/hooks.ts";
+import {useNavigate} from 'react-router-dom'
+import {register, reset} from "../features/auth/auth.slice.ts";
+import Spinner from "../components/Spinner.tsx";
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -9,6 +13,35 @@ function Register() {
     });
 
     const [error, setError] = useState('');
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+
+    const {
+        user,
+        isLoading,
+        isError,
+        isSuccess,
+        message
+    } = useAppSelector((state) => state.auth)
+
+    useEffect(() => {
+        if (isError) {
+            setError(message)
+        }
+
+        if (isSuccess || user) {
+            navigate('/')
+        }
+
+        dispatch(reset())
+    }, [
+        user,
+        isError,
+        isSuccess,
+        message,
+        navigate,
+        dispatch,
+    ])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -27,8 +60,18 @@ function Register() {
 
         setError('');
 
-        // Add your API call logic here
+        dispatch(register({
+            name: formData.name!,
+            email: formData.email!,
+            password: formData.password!,
+        }))
     };
+
+    if (isLoading) {
+        return (
+            <Spinner/>
+        )
+    }
 
     return (
         <div className="mx-auto max-w-md p-8 space-y-6 bg-gray-50 border border-gray-200 shadow-xs rounded-xl">
