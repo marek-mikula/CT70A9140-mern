@@ -10,7 +10,7 @@ if (result.error) {
     process.exit(1)
 }
 
-const port = process.env.PORT
+const port = Number(process.env.API_PORT) || 8080
 
 await connectDb()
 
