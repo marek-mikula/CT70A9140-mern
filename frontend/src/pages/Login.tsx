@@ -1,4 +1,8 @@
-import {type ChangeEvent, type SubmitEvent, useState} from "react";
+import {type ChangeEvent, type SubmitEvent, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
+import {login, reset} from "../features/auth/auth.slice.ts";
+import Spinner from "../components/Spinner.tsx";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -6,7 +10,36 @@ function Login() {
         password: '',
     });
 
-    const [error] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+
+    const {
+        user,
+        isLoading,
+        isError,
+        isSuccess,
+        message
+    } = useAppSelector((state) => state.auth)
+
+    useEffect(() => {
+        if (isError) {
+            setError(message)
+        }
+
+        if (isSuccess || user) {
+            navigate('/')
+        }
+
+        dispatch(reset())
+    }, [
+        user,
+        isError,
+        isSuccess,
+        message,
+        navigate,
+        dispatch,
+    ])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -18,8 +51,19 @@ function Login() {
     const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Add your API call logic here
+        setError('');
+
+        dispatch(login({
+            email: formData.email!,
+            password: formData.password!,
+        }))
     };
+
+    if (isLoading) {
+        return (
+            <Spinner/>
+        )
+    }
 
     return (
         <div className="mx-auto max-w-md p-8 space-y-6 bg-gray-50 border border-gray-200 shadow-xs rounded-xl">
