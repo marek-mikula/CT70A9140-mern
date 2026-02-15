@@ -81,8 +81,7 @@ export const getMe = asyncHandler(async (
     req: Request,
     res: Response
 ) => {
-    const user = (await userModel.findById(req.user!.id))!
-
+    const user = req.user!
     res.status(200).json({
         id: user.id,
         name: user.name,
