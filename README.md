@@ -1,7 +1,8 @@
 # CT70A9140-mern
 
 Author: **Marek Mikula**<br/>
-Year: **2026**
+Year: **2026**<br/>
+Learning diary: [Learning diary.pdf](docs/Learning%20diary.pdf)
 
 This project represents the final project of the course CT70A9140 - Software Development Skills: Full-Stack.
 
