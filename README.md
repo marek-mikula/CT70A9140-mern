@@ -1,5 +1,8 @@
 # CT70A9140-mern
 
+Author: **Marek Mikula**<br/>
+Year: **2026**
+
 This project represents the final project of the course CT70A9140 - Software Development Skills: Full-Stack.
 
 ## Installation
