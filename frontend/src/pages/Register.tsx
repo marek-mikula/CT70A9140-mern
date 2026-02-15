@@ -74,80 +74,103 @@ function Register() {
     }
 
     return (
-        <div className="mx-auto max-w-md p-8 space-y-6 bg-gray-50 border border-gray-200 shadow-xs rounded-xl">
-                <h2 className="text-2xl font-bold text-center text-gray-800">Create an Account</h2>
+        <div className="flex items-center justify-center">
+            <div className="w-full max-w-md bg-white p-10 rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100">
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name field */}
-                    <div>
-                        <label className="block mb-1 text-sm font-medium text-gray-700">Full Name</label>
+                <h2 className="text-3xl font-bold text-center text-gray-900 mb-8 tracking-tight">
+                    Create Account
+                </h2>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+
+                    {/* Full Name field */}
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-semibold uppercase tracking-wider text-gray-400 ml-4">
+                            Full Name
+                        </label>
                         <input
                             type="text"
                             name="name"
                             autoComplete="name"
                             required
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                             placeholder="John Doe"
                             value={formData.name}
                             onChange={handleChange}
+                            className="w-full px-6 py-3.5 bg-gray-50 border-none rounded-2xl text-gray-700 placeholder:text-gray-300 focus:ring-2 focus:ring-blue-400/50 transition-all outline-none"
                         />
                     </div>
 
                     {/* Email field */}
-                    <div>
-                        <label className="block mb-1 text-sm font-medium text-gray-700">Email Address</label>
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-semibold uppercase tracking-wider text-gray-400 ml-4">
+                            Email Address
+                        </label>
                         <input
                             type="email"
                             name="email"
                             autoComplete="email"
                             required
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                             placeholder="you@example.com"
                             value={formData.email}
                             onChange={handleChange}
+                            className="w-full px-6 py-3.5 bg-gray-50 border-none rounded-2xl text-gray-700 placeholder:text-gray-300 focus:ring-2 focus:ring-blue-400/50 transition-all outline-none"
                         />
                     </div>
 
-                    {/* Password field */}
-                    <div>
-                        <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            autoComplete="new-password"
-                            required
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                            value={formData.password}
-                            onChange={handleChange}
-                        />
-                    </div>
+                    {/* Password fields row */}
+                    <div className="grid grid-cols-1 gap-5">
+                        <div className="flex flex-col gap-1.5">
+                            <label className="text-xs font-semibold uppercase tracking-wider text-gray-400 ml-4">
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                name="password"
+                                autoComplete="new-password"
+                                required
+                                value={formData.password}
+                                onChange={handleChange}
+                                className="w-full px-6 py-3.5 bg-gray-50 border-none rounded-2xl text-gray-700 focus:ring-2 focus:ring-blue-400/50 transition-all outline-none"
+                            />
+                        </div>
 
-                    {/* Password confirm field */}
-                    <div>
-                        <label className="block mb-1 text-sm font-medium text-gray-700">Confirm Password</label>
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            autoComplete="off"
-                            required
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
-                        />
+                        <div className="flex flex-col gap-1.5">
+                            <label className="text-xs font-semibold uppercase tracking-wider text-gray-400 ml-4">
+                                Confirm Password
+                            </label>
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                autoComplete="off"
+                                required
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                className="w-full px-6 py-3.5 bg-gray-50 border-none rounded-2xl text-gray-700 focus:ring-2 focus:ring-blue-400/50 transition-all outline-none"
+                            />
+                        </div>
                     </div>
 
                     {/* Error Message */}
-                    {error && <p className="text-sm text-red-500">{error}</p>}
+                    {error && (
+                        <div className="px-4 py-3 bg-red-50 rounded-2xl border border-red-100 animate-in fade-in slide-in-from-top-1">
+                            <p className="text-sm text-red-500 font-medium text-center">{error}</p>
+                        </div>
+                    )}
 
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full py-2 font-semibold text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700"
+                        className="w-full py-4 mt-4 bg-gray-900 hover:bg-black text-white font-semibold rounded-2xl transition-all active:scale-[0.98] shadow-lg shadow-gray-200"
                     >
-                        Register
+                        Create Account
                     </button>
                 </form>
+
+                <p className="mt-8 text-center text-sm text-gray-400">
+                    Already have an account? <span className="text-gray-900 font-medium cursor-pointer hover:underline">Log in</span>
+                </p>
             </div>
+        </div>
     );
 }
 
