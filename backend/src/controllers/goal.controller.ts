@@ -10,7 +10,12 @@ export const getGoals = asyncHandler(async (
         user: req.user!.id
     })
 
-    res.status(200).json(goals)
+    res.status(200).json(goals.map(item => ({
+        id: item.id,
+        title: item.title,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+    })))
 })
 
 export const storeGoal = asyncHandler(async (
@@ -29,7 +34,12 @@ export const storeGoal = asyncHandler(async (
         user: req.user!.id
     })
 
-    res.status(200).json(goal)
+    res.status(200).json({
+        id: goal.id,
+        title: goal.title,
+        createdAt: goal.createdAt,
+        updatedAt: goal.updatedAt,
+    })
 })
 
 export const getGoal = asyncHandler(async (
@@ -47,7 +57,12 @@ export const getGoal = asyncHandler(async (
         throw new Error(`Goal with ID ${id} not found.`)
     }
 
-    res.status(200).json(goal)
+    res.status(200).json({
+        id: goal.id,
+        title: goal.title,
+        createdAt: goal.createdAt,
+        updatedAt: goal.updatedAt,
+    })
 })
 
 export const updateGoal = asyncHandler(async (
@@ -75,7 +90,12 @@ export const updateGoal = asyncHandler(async (
     goal.title = title
     goal.save()
 
-    res.status(200).json(goal)
+    res.status(200).json({
+        id: goal.id,
+        title: goal.title,
+        createdAt: goal.createdAt,
+        updatedAt: goal.updatedAt,
+    })
 })
 
 export const deleteGoal = asyncHandler(async (
@@ -93,5 +113,10 @@ export const deleteGoal = asyncHandler(async (
         throw new Error(`Goal with ID ${id} not found.`)
     }
 
-    res.status(200).json(goal)
+    res.status(200).json({
+        id: goal.id,
+        title: goal.title,
+        createdAt: goal.createdAt,
+        updatedAt: goal.updatedAt,
+    })
 })

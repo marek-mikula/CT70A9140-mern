@@ -1,11 +1,12 @@
 import type {Goal, StoreGoalData, UpdateGoalData} from "./goal.type.ts";
 
 class GoalService {
-    public async getGoals(): Promise<Goal[]> {
+    public async getGoals(token: string): Promise<Goal[]> {
         const response = await fetch('/api/goals', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
         })
 
@@ -16,11 +17,12 @@ class GoalService {
         return await response.json() as Goal[]
     }
 
-    public async getGoal(id: string): Promise<Goal> {
+    public async getGoal(id: string, token: string): Promise<Goal> {
         const response = await fetch(`/api/goals/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
         })
 
@@ -53,11 +55,12 @@ class GoalService {
         return await response.json() as Goal
     }
 
-    public async update(id: string, data: UpdateGoalData): Promise<Goal> {
+    public async update(id: string, data: UpdateGoalData, token: string): Promise<Goal> {
         const response = await fetch(`/api/goals/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify(data)
         })
@@ -74,17 +77,20 @@ class GoalService {
         return await response.json() as Goal
     }
 
-    public async deleteGoal(id: string): Promise<void> {
+    public async deleteGoal(id: string, token: string): Promise<string> {
         const response = await fetch(`/api/goals/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
         })
 
         if (response.status !== 200) {
             throw new Error('Delete goal request failed.')
         }
+
+        return id
     }
 }
 

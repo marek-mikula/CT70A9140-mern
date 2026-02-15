@@ -8,6 +8,7 @@ export interface UpdateGoalData {
 
 export interface Goal {
     id: string
-    user: string
     title: string
+    createdAt: string
+    updatedAt: string
 }
