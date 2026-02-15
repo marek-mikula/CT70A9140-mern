@@ -165,10 +165,6 @@ function Register() {
                         Create Account
                     </button>
                 </form>
-
-                <p className="mt-8 text-center text-sm text-gray-400">
-                    Already have an account? <span className="text-gray-900 font-medium cursor-pointer hover:underline">Log in</span>
-                </p>
             </div>
         </div>
     );

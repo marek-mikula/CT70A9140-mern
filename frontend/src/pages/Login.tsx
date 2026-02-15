@@ -127,10 +127,6 @@ function Login() {
                         Login
                     </button>
                 </form>
-
-                <p className="mt-8 text-center text-sm text-gray-400">
-                    Don't have an account? <span className="text-gray-900 font-medium cursor-pointer hover:underline">Sign up</span>
-                </p>
             </div>
         </div>
     );
