@@ -2,7 +2,8 @@
 
 Author: **Marek Mikula**<br/>
 Year: **2026**<br/>
-Learning diary: [Learning diary.pdf](docs/Learning%20diary.pdf)
+Learning diary: [Learning diary.pdf](docs/Learning%20diary.pdf)<br/>
+Project showcase video: [video](https://www.youtube.com/watch?v=cAzg_9TeKxs)
 
 This project represents the final project of the course CT70A9140 - Software Development Skills: Full-Stack.
 
