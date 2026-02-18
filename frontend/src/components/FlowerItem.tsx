@@ -100,8 +100,25 @@ function FlowerItem({ flower }: Props) {
                 <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors ${
                     status.needsAttention ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white'
                 }`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="size-6"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
+                        <circle cx="12" cy="12" r="2" />
+                        <path d="M12 8c2-4 6-4 6 0s-4 4-6 4" />
+                        <path d="M12 8c-2-4-6-4-6 0s4 4 6 4" />
+                        <path d="M16 12c4 2 4 6 0 6s-4-4-4-6" />
+                        <path d="M16 12c4-2 4-6 0-6s-4 4-4 6" />
+                        <path d="M12 16c-2 4-6 4-6 0s4-4 6-4" />
+                        <path d="M12 16c2 4 6 4 6 0s-4-4-6-4" />
+                        <path d="M8 12c-4-2-4-6 0-6s4 4 4 6" />
+                        <path d="M8 12c-4 2-4 6 0 6s4-4 4-6" />
                     </svg>
                 </div>
                 <h3 className="text-xl font-bold text-emerald-950">{flower.name}</h3>

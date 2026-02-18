@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks.ts";
-import {listFlowers, reset} from "../features/flower/flower.slice.ts";
+import { listFlowers, reset } from "../features/flower/flower.slice.ts";
 import Spinner from "../components/Spinner.tsx";
 import FlowerItem from "./FlowerItem.tsx";
 
@@ -19,6 +19,19 @@ function FlowerList() {
         };
     }, [dispatch]);
 
+    // --- Garden Health Logic ---
+    const thirstyFlowersCount = flowers.filter(flower => {
+        if (!flower.lastWateredAt) return true; // Needs first water
+
+        const lastDate = new Date(flower.lastWateredAt).getTime();
+        const now = new Date().getTime();
+        const daysPassed = (now - lastDate) / (1000 * 60 * 60 * 24);
+
+        return daysPassed >= flower.waterDuration;
+    }).length;
+
+    const isGardenThirsty = thirstyFlowersCount > 0;
+
     if (isLoading) {
         return <Spinner />;
     }
@@ -28,12 +41,25 @@ function FlowerList() {
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h2 className="text-2xl font-extrabold text-emerald-950">My Garden</h2>
-                    <p className="text-emerald-600/60 font-medium">You have {flowers.length} plants to tend to.</p>
+                    <p className="text-emerald-600/60 font-medium">
+                        You have {flowers.length} plants to tend to.
+                    </p>
                 </div>
 
-                <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-full border border-emerald-100">
-                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                    <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Garden Lush</span>
+                {/* Dynamic Garden Indicator */}
+                <div className={`hidden sm:flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-500 ${
+                    isGardenThirsty
+                        ? 'bg-amber-50 border-amber-200'
+                        : 'bg-emerald-50 border-emerald-100'
+                }`}>
+                    <div className={`w-2 h-2 rounded-full animate-pulse ${
+                        isGardenThirsty ? 'bg-amber-500' : 'bg-emerald-500'
+                    }`}></div>
+                    <span className={`text-xs font-bold uppercase tracking-wider ${
+                        isGardenThirsty ? 'text-amber-700' : 'text-emerald-700'
+                    }`}>
+                        {isGardenThirsty ? `${thirstyFlowersCount} Thirsty Plants` : 'Garden Lush'}
+                    </span>
                 </div>
             </div>
 
