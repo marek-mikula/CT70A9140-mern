@@ -32,7 +32,7 @@ export const storeFlower = asyncHandler(async (
         lastWateredAt: null,
     })
 
-    res.status(200).json(flower)
+    res.status(201).json(flower)
 })
 
 export const deleteFlower = asyncHandler(async (

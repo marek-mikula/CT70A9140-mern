@@ -63,6 +63,21 @@ export const deleteFlower = createAsyncThunk<
     }
 })
 
+export const waterFlower = createAsyncThunk<
+    Flower,
+    string,
+    {rejectValue: string}
+>('flower/water', async (id, thunkAPI) => {
+    try {
+        // @ts-ignore
+        const token = thunkAPI.getState().auth.user.token
+        return await flowerService.water(id, token)
+    } catch (error: any) {
+        const message = error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 const flowerSlice = createSlice({
     name: 'flower',
     initialState,
@@ -112,6 +127,25 @@ const flowerSlice = createSlice({
                 state.flowers = state.flowers.filter(item => item._id !== action.payload)
             })
             .addCase(deleteFlower.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload || action.error.message || 'Unknown error'
+            })
+            .addCase(waterFlower.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(waterFlower.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+
+                const index = state.flowers.findIndex(item => item._id === action.payload._id)
+                if (index === -1) {
+                    state.flowers.push(action.payload)
+                } else {
+                    state.flowers.splice(index, 1, action.payload)
+                }
+            })
+            .addCase(waterFlower.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload || action.error.message || 'Unknown error'
