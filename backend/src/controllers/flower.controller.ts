@@ -19,8 +19,10 @@ export const storeFlower = asyncHandler(async (
 ) => {
     const name = req.body.name
     const waterDuration = req.body.waterDuration
+    const lightLevel = req.body.lightLevel
+    const soilType = req.body.soilType
 
-    if (!name || !waterDuration) {
+    if (!name || !waterDuration || !lightLevel || !soilType) {
         res.status(400)
         throw new Error('Invalid data.')
     }
@@ -29,6 +31,8 @@ export const storeFlower = asyncHandler(async (
         user: req.user!.id,
         name,
         waterDuration,
+        lightLevel,
+        soilType,
         lastWateredAt: null,
     })
 

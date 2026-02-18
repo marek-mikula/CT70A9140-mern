@@ -6,6 +6,8 @@ function FlowerForm() {
     const [isOpen, setIsOpen] = useState(false);
     const [name, setName] = useState('');
     const [waterDuration, setWaterDuration] = useState('');
+    const [lightLevel, setLightLevel] = useState('medium');
+    const [soilType, setSoilType] = useState('peat_moss');
     const [error, setError] = useState('');
 
     const dispatch = useAppDispatch();
@@ -13,18 +15,22 @@ function FlowerForm() {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
-        if (!name.trim() || !waterDuration.trim()) {
-            setError('Please fill in both the name and watering duration.');
+        if (!name.trim() || !waterDuration.trim() || !lightLevel || !soilType) {
+            setError('Please fill in all required fields.');
             return;
         }
 
         setError('');
         setName('');
         setWaterDuration('');
+        setLightLevel('medium');
+        setSoilType('standard');
 
         dispatch(storeFlower({
             name: name.trim(),
-            waterDuration: Number(waterDuration)
+            waterDuration: Number(waterDuration),
+            lightLevel,
+            soilType
         }));
     };
 
@@ -49,7 +55,6 @@ function FlowerForm() {
                         </div>
                     </div>
 
-                    {/* Animated Arrow */}
                     <div className={`p-2 rounded-full bg-emerald-50 text-emerald-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -57,53 +62,62 @@ function FlowerForm() {
                     </div>
                 </button>
 
-                {/* Collapsible Content */}
-                <div className={`transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-                    <form onSubmit={handleSubmit} className="px-8 pb-8 space-y-5 border-t border-emerald-50/50 pt-6">
-                        {/* Flower Name field */}
+                <div className={`transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+                    <form onSubmit={handleSubmit} className="px-8 pb-8 space-y-4 border-t border-emerald-50/50 pt-6">
+
                         <div className="flex flex-col gap-1.5">
-                            <label htmlFor="name" className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">
-                                Flower Name
-                            </label>
+                            <label className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Flower Name</label>
                             <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                type="text" value={name} onChange={(e) => setName(e.target.value)}
                                 placeholder="Monstera Deliciosa"
                                 className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 placeholder:text-emerald-300 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none"
                                 required
                             />
                         </div>
 
-                        {/* Water Duration field */}
                         <div className="flex flex-col gap-1.5">
-                            <label htmlFor="waterDuration" className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">
-                                Water Every (Days)
-                            </label>
+                            <label className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Water Every (Days)</label>
                             <div className="relative">
                                 <input
-                                    type="number"
-                                    id="waterDuration"
-                                    name="waterDuration"
-                                    min="1"
-                                    value={waterDuration}
-                                    onChange={(e) => setWaterDuration(e.target.value)}
+                                    type="number" min="1" value={waterDuration} onChange={(e) => setWaterDuration(e.target.value)}
                                     placeholder="7"
-                                    className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 placeholder:text-emerald-300 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none"
+                                    className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none number-input-no-spin"
                                     required
                                 />
-                                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
-                                    <span className="text-xs font-bold text-emerald-400 uppercase tracking-tighter">Days</span>
-                                </div>
+                                <span className="absolute right-6 top-1/2 -translate-y-1/2 text-xs font-bold text-emerald-400 uppercase tracking-tighter">Days</span>
                             </div>
                         </div>
 
-                        {/* Error Message */}
+                        <div className="flex flex-col gap-1.5">
+                            <label className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Light Level</label>
+                            <select
+                                value={lightLevel}
+                                onChange={(e) => setLightLevel(e.target.value)}
+                                className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none appearance-none cursor-pointer"
+                            >
+                                <option value="low">Low Light</option>
+                                <option value="medium">Medium (Indirect)</option>
+                                <option value="bright">Bright Direct</option>
+                            </select>
+                        </div>
+
+                        <div className="flex flex-col gap-1.5">
+                            <label className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Soil Type</label>
+                            <select
+                                value={soilType}
+                                onChange={(e) => setSoilType(e.target.value)}
+                                className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none appearance-none cursor-pointer"
+                            >
+                                <option value="standard">Standard Potting Mix</option>
+                                <option value="cactus_succulent">Cactus & Succulent</option>
+                                <option value="peat_moss">Peat Moss</option>
+                                <option value="orchid_bark">Orchid Bark</option>
+                            </select>
+                        </div>
+
                         {error && (
-                            <div className="px-5 py-3 bg-rose-50 rounded-2xl border border-rose-100 animate-in fade-in zoom-in-95 duration-200">
-                                <p className="text-sm text-rose-500 font-semibold text-center">{error}</p>
+                            <div className="px-5 py-3 bg-rose-50 rounded-2xl border border-rose-100 animate-in fade-in zoom-in-95 duration-200 text-sm text-rose-500 font-semibold text-center">
+                                {error}
                             </div>
                         )}
 
@@ -120,4 +134,4 @@ function FlowerForm() {
     );
 }
 
-export default FlowerForm
+export default FlowerForm;

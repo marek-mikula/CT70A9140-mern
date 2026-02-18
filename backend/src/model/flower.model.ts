@@ -5,6 +5,8 @@ export interface Flower {
     user: string
     name: string
     waterDuration: number
+    lightLevel: 'low' | 'medium' | 'bright',
+    soilType: 'standard' | 'cactus_succulent' | 'peat_moss' | 'orchid_bark',
     lastWateredAt: Date|null
     createdAt: Date
     updatedAt: Date
@@ -17,11 +19,30 @@ const schema = new Schema({
     },
     name: {
         type: String,
-        required: [true, 'Please add a name for the flower.'],
+        required: [true, 'Please add a name.'],
     },
     waterDuration: {
         type: Number,
-        required: [true, 'Please add a water duration in hours for the flower.'],
+        required: [true, 'Please add a water duration.'],
+    },
+    lightLevel: {
+        type: String,
+        required: [true, 'Please add a light level.'],
+        enum: [
+            'low',
+            'medium',
+            'bright',
+        ],
+    },
+    soilType: {
+        type: String,
+        required: [true, 'Please add a soil type.'],
+        enum: [
+            'standard',
+            'cactus_succulent',
+            'peat_moss',
+            'orchid_bark',
+        ],
     },
     lastWateredAt: {
         type: Date,
