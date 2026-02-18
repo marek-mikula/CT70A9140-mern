@@ -96,24 +96,24 @@ function FlowerItem({ flower }: Props) {
 
             <div className="flex items-center gap-3 mb-6">
                 <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors ${
-                    status.needsAttention ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white'
+                    status.needsAttention ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600'
                 }`}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="12" cy="12" r="2" /><path d="M12 8c2-4 6-4 6 0s-4 4-6 4" /><path d="M12 8c-2-4-6-4-6 0s4 4 6 4" /><path d="M16 12c4 2 4 6 0 6s-4-4-4-6" /><path d="M16 12c4-2 4-6 0-6s-4 4-4 6" /><path d="M12 16c-2 4-6 4-6 0s4-4 6-4" /><path d="M12 16c2 4 6 4 6 0s-4-4-6-4" /><path d="M8 12c-4-2-4-6 0-6s4 4 4 6" /><path d="M8 12c-4 2-4 6 0 6s4-4 4-6" />
                     </svg>
                 </div>
-                <h3 className="text-xl font-bold text-emerald-950">{flower.name}</h3>
+                <h3 className="text-xl font-bold text-emerald-950 leading-none">{flower.name}</h3>
             </div>
 
             {/* Hydration Progress */}
-            <div className="space-y-2 mb-6">
+            <div className="space-y-2 mb-8">
                 <div className="flex justify-between items-end px-1">
                     <span className="text-[10px] font-bold uppercase tracking-tighter text-emerald-800/40">Hydration Level</span>
                     <span className={`text-xs font-black ${status.color === 'amber' ? 'text-amber-600' : 'text-blue-500'}`}>
                         {status.daysLeft} {status.daysLeft === 1 ? 'day' : 'days'} left
                     </span>
                 </div>
-                <div className="w-full h-2 bg-emerald-50 rounded-full overflow-hidden border border-emerald-100/30">
+                <div className="w-full h-2 bg-blue-50 rounded-full overflow-hidden border border-emerald-100/30">
                     <div
                         className={`h-full transition-all duration-1000 ease-out rounded-full ${
                             status.color === 'amber' ? 'bg-amber-400' : 'bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.5)]'
@@ -123,35 +123,34 @@ function FlowerItem({ flower }: Props) {
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 mb-4">
-                {/* Light Level Badge */}
-                <div className="flex items-center gap-2 px-3 py-2 bg-orange-50/50 rounded-2xl border border-orange-100/50">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="size-3.5 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            {/* Unified Attributes Section */}
+            <div className="flex flex-wrap items-center gap-2">
+                {/* Light */}
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-50/50 text-yellow-700 rounded-xl border border-yellow-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
                     </svg>
-                    <span className="text-[10px] font-bold text-orange-700 uppercase tracking-tight">
-                        {lightLevels[flower.lightLevel]}
-                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-tight">{lightLevels[flower.lightLevel]}</span>
                 </div>
 
-                {/* Soil Type Badge */}
-                <div className="flex items-center gap-2 px-3 py-2 bg-stone-100/60 rounded-2xl border border-stone-200/50">
+                {/* Soil */}
+                <div
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-100/60 text-stone-700 rounded-xl border border-stone-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                         stroke="currentColor" className="size-3.5 text-stone-500">
+                         stroke="currentColor" className="size-3">
                         <path stroke-linecap="round" stroke-linejoin="round"
                               d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/>
                     </svg>
-                    <span className="text-[10px] font-bold text-stone-700 uppercase tracking-tight">
-                        {soilTypes[flower.soilType]}
-                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-tight">{soilTypes[flower.soilType]}</span>
                 </div>
-            </div>
 
-            {/* Watering Cycle Badge */}
-            <div className="flex items-center gap-2">
+                {/* Cycle */}
                 <div
-                    className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100">
-                <span className="text-[10px] font-bold uppercase tracking-widest">Cycle: {flower.waterDuration} days</span>
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-xl border border-blue-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56" /><path d="M22 2v6h-6" />
+                    </svg>
+                    <span className="text-[10px] font-bold uppercase tracking-tight">{flower.waterDuration} {flower.waterDuration === 1 ? 'Day' : 'Days'}</span>
                 </div>
             </div>
         </div>
