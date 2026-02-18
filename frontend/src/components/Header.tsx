@@ -1,11 +1,11 @@
-import {Link, useNavigate} from 'react-router-dom'
-import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import {logout, reset} from "../features/auth/auth.slice.ts";
+import { Link, useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from "../app/hooks.ts";
+import { logout, reset } from "../features/auth/auth.slice.ts";
 
 function Header() {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const {user} = useAppSelector(state => state.auth)
+    const { user } = useAppSelector(state => state.auth)
 
     const handleLogout = () => {
         dispatch(logout())
@@ -14,43 +14,46 @@ function Header() {
     }
 
     return (
-        <header className="mx-auto max-w-5xl mt-6 px-6 py-4 flex items-center justify-between bg-white/80 backdrop-blur-md border border-gray-100 shadow-xl shadow-gray-200/40 rounded-[2rem]">
+        <header className="mx-auto max-w-5xl mt-6 px-6 py-4 flex items-center justify-between bg-emerald-50/60 backdrop-blur-lg border border-emerald-100/50 shadow-lg shadow-emerald-900/5 rounded-[2rem]">
             {/* Logo / Title */}
             <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-gray-900 rounded-xl flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                {/* Custom Leaf Icon */}
+                <div className="w-9 h-9 bg-emerald-500 rounded-tr-[14px] rounded-bl-[14px] rounded-tl-md rounded-br-md flex items-center justify-center shadow-inner">
+                    <div className="w-1.5 h-4 bg-emerald-100/90 rotate-45 rounded-full"></div>
                 </div>
-                <span className="font-bold tracking-tight text-gray-900 text-lg ml-1">Goals <span className="text-gray-400 font-medium">App</span></span>
+                <span className="font-extrabold tracking-tight text-emerald-950 text-xl ml-1">
+                    Flowee<span className="text-emerald-500">.</span>
+                </span>
             </div>
 
             {/* Navigation */}
-            <nav className="flex items-center gap-1">
+            <nav className="flex items-center gap-2">
                 {user === null ? (
                     <>
                         <Link
                             to="/login"
-                            className="px-5 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+                            className="px-5 py-2 text-sm font-semibold text-emerald-800 hover:text-emerald-600 transition-colors"
                         >
                             Login
                         </Link>
                         <Link
                             to="/register"
-                            className="px-5 py-2 text-sm font-medium bg-gray-900 text-white rounded-2xl hover:bg-black transition-all active:scale-[0.95]"
+                            className="px-6 py-2 text-sm font-bold bg-emerald-600 text-white rounded-[1.5rem] hover:bg-emerald-700 hover:shadow-md hover:shadow-emerald-200 transition-all active:scale-[0.95]"
                         >
-                            Register
+                            Get Started
                         </Link>
                     </>
                 ) : (
                     <>
                         <Link
                             to="/"
-                            className="px-5 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+                            className="px-5 py-2 text-sm font-semibold text-emerald-800 hover:text-emerald-600 transition-colors"
                         >
-                            Dashboard
+                            My Garden
                         </Link>
                         <button
                             onClick={handleLogout}
-                            className="px-5 py-2 text-sm font-medium text-red-500 hover:bg-red-50 rounded-2xl transition-all"
+                            className="px-5 py-2 text-sm font-semibold text-rose-500 hover:bg-rose-50 rounded-full transition-all"
                         >
                             Logout
                         </button>

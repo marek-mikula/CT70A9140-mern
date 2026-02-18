@@ -1,4 +1,4 @@
-# CT70A9140-mern
+# Flowee
 
 Author: **Marek Mikula**<br/>
 Year: **2026**<br/>

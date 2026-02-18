@@ -1,7 +1,7 @@
-import {type ChangeEvent, type SubmitEvent, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import {login, reset} from "../features/auth/auth.slice.ts";
+import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
+import {Link, useNavigate} from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../app/hooks.ts";
+import { login, reset } from "../features/auth/auth.slice.ts";
 import Spinner from "../components/Spinner.tsx";
 
 function Login() {
@@ -32,14 +32,7 @@ function Login() {
         }
 
         dispatch(reset())
-    }, [
-        user,
-        isError,
-        isSuccess,
-        message,
-        navigate,
-        dispatch,
-    ])
+    }, [user, isError, isSuccess, message, navigate, dispatch])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -48,38 +41,42 @@ function Login() {
         });
     };
 
-    const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         setError('');
-
         dispatch(login({
-            email: formData.email!,
-            password: formData.password!,
+            email: formData.email,
+            password: formData.password,
         }))
     };
 
     if (isLoading) {
-        return (
-            <Spinner/>
-        )
+        return <Spinner />
     }
 
     return (
-        <div className="flex items-center justify-center">
-            <div className="w-full max-w-md bg-white p-10 rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100">
+        <div className="flex items-center justify-center min-h-[80vh] px-4">
+            <div className="w-full max-w-md bg-white/70 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl shadow-emerald-900/10 border border-emerald-100/50">
 
-                <h2 className="text-3xl font-bold text-center text-gray-900 mb-8 tracking-tight">
+                {/* Brand Accent */}
+                <div className="flex justify-center mb-6">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                        <div className="w-6 h-6 bg-emerald-500 rounded-tr-lg rounded-bl-lg"></div>
+                    </div>
+                </div>
+
+                <h2 className="text-3xl font-extrabold text-center text-emerald-950 mb-2 tracking-tight">
                     Welcome back
                 </h2>
+                <p className="text-center text-emerald-600/70 text-sm mb-10 font-medium">
+                    Ready to tend to your garden?
+                </p>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
 
                     {/* Email field */}
-                    <div className="flex flex-col gap-2">
-                        <label
-                            className="text-xs font-semibold uppercase tracking-wider text-gray-400 ml-4"
-                        >
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">
                             Email Address
                         </label>
                         <input
@@ -87,18 +84,16 @@ function Login() {
                             name="email"
                             autoComplete="email"
                             required
-                            placeholder="you@example.com"
+                            placeholder="flower@growth.com"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full px-6 py-4 bg-gray-50 border-none rounded-2xl text-gray-700 placeholder:text-gray-300 focus:ring-2 focus:ring-blue-400/50 transition-all outline-none"
+                            className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 placeholder:text-emerald-300 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none"
                         />
                     </div>
 
                     {/* Password field */}
-                    <div className="flex flex-col gap-2">
-                        <label
-                            className="text-xs font-semibold uppercase tracking-wider text-gray-400 ml-4"
-                        >
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">
                             Password
                         </label>
                         <input
@@ -106,27 +101,35 @@ function Login() {
                             name="password"
                             autoComplete="current-password"
                             required
+                            placeholder="••••••••"
                             value={formData.password}
                             onChange={handleChange}
-                            className="w-full px-6 py-4 bg-gray-50 border-none rounded-2xl text-gray-700 focus:ring-2 focus:ring-blue-400/50 transition-all outline-none"
+                            className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 placeholder:text-emerald-300 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none"
                         />
                     </div>
 
                     {/* Error Message */}
                     {error && (
-                        <div className="px-4 py-2 bg-red-50 rounded-xl border border-red-100">
-                            <p className="text-sm text-red-500 font-medium">{error}</p>
+                        <div className="px-5 py-3 bg-rose-50 rounded-2xl border border-rose-100 animate-in fade-in zoom-in-95 duration-200">
+                            <p className="text-sm text-rose-500 font-semibold flex items-center gap-2">
+                                <span className="w-1 h-1 bg-rose-400 rounded-full"></span>
+                                {error}
+                            </p>
                         </div>
                     )}
 
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full py-4 mt-2 bg-gray-900 hover:bg-black text-white font-semibold rounded-2xl transition-all active:scale-[0.98] shadow-lg shadow-gray-200"
+                        className="w-full py-4 mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-[1.5rem] transition-all active:scale-[0.97] shadow-lg shadow-emerald-200"
                     >
-                        Login
+                        Sign In
                     </button>
                 </form>
+
+                <p className="mt-8 text-center text-sm text-emerald-700/60 font-medium">
+                    New gardener? <Link to="/register" className="text-emerald-600 hover:underline cursor-pointer">Join the community</Link>
+                </p>
             </div>
         </div>
     );
