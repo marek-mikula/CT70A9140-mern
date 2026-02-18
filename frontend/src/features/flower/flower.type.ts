@@ -16,3 +16,16 @@ export interface StoreFlowerData {
     lightLevel: string
     soilType: string
 }
+
+export const lightLevels = {
+    low: "Low Light",
+    medium: "Medium Light (indirect)",
+    bright: "Bright Light"
+}
+
+export const soilTypes = {
+    standard: "Standard Soil",
+    cactus_succulent: "Cactus/Succulent",
+    peat_moss: "Peat Moss",
+    orchid_bark: "Orchid Bark"
+}

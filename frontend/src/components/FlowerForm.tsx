@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useAppDispatch } from "../app/hooks.ts";
 import { storeFlower } from "../features/flower/flower.slice.ts";
+import {lightLevels, soilTypes} from "../features/flower/flower.type.ts";
 
 function FlowerForm() {
     const [isOpen, setIsOpen] = useState(false);
@@ -95,9 +96,9 @@ function FlowerForm() {
                                 onChange={(e) => setLightLevel(e.target.value)}
                                 className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none appearance-none cursor-pointer"
                             >
-                                <option value="low">Low Light</option>
-                                <option value="medium">Medium (Indirect)</option>
-                                <option value="bright">Bright Direct</option>
+                                {Object.entries(lightLevels).map((value) => (
+                                    <option value={value[0]}>{value[1]}</option>
+                                ))}
                             </select>
                         </div>
 
@@ -108,10 +109,9 @@ function FlowerForm() {
                                 onChange={(e) => setSoilType(e.target.value)}
                                 className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none appearance-none cursor-pointer"
                             >
-                                <option value="standard">Standard Potting Mix</option>
-                                <option value="cactus_succulent">Cactus & Succulent</option>
-                                <option value="peat_moss">Peat Moss</option>
-                                <option value="orchid_bark">Orchid Bark</option>
+                                {Object.entries(soilTypes).map((value) => (
+                                    <option value={value[0]}>{value[1]}</option>
+                                ))}
                             </select>
                         </div>
 

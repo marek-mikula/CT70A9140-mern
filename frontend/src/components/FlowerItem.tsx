@@ -1,4 +1,4 @@
-import type { Flower } from "../features/flower/flower.type.ts";
+import {type Flower, lightLevels, soilTypes} from "../features/flower/flower.type.ts";
 import { deleteFlower, waterFlower } from "../features/flower/flower.slice.ts";
 import { useAppDispatch } from "../app/hooks.ts";
 
@@ -72,7 +72,6 @@ function FlowerItem({ flower }: Props) {
 
                 {/* Action Buttons */}
                 <div className="flex items-center gap-1">
-                    {/* Water Button */}
                     <button
                         onClick={() => handleWater(flower._id)}
                         className="p-2 text-blue-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all active:scale-90"
@@ -83,7 +82,6 @@ function FlowerItem({ flower }: Props) {
                         </svg>
                     </button>
 
-                    {/* Delete Button */}
                     <button
                         className="text-rose-300 hover:text-rose-500 hover:bg-rose-50 p-2 rounded-full transition-all active:scale-90"
                         onClick={() => handleDelete(flower._id)}
@@ -100,30 +98,14 @@ function FlowerItem({ flower }: Props) {
                 <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors ${
                     status.needsAttention ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white'
                 }`}>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="size-6"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    >
-                        <circle cx="12" cy="12" r="2" />
-                        <path d="M12 8c2-4 6-4 6 0s-4 4-6 4" />
-                        <path d="M12 8c-2-4-6-4-6 0s4 4 6 4" />
-                        <path d="M16 12c4 2 4 6 0 6s-4-4-4-6" />
-                        <path d="M16 12c4-2 4-6 0-6s-4 4-4 6" />
-                        <path d="M12 16c-2 4-6 4-6 0s4-4 6-4" />
-                        <path d="M12 16c2 4 6 4 6 0s-4-4-6-4" />
-                        <path d="M8 12c-4-2-4-6 0-6s4 4 4 6" />
-                        <path d="M8 12c-4 2-4 6 0 6s4-4 4-6" />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="2" /><path d="M12 8c2-4 6-4 6 0s-4 4-6 4" /><path d="M12 8c-2-4-6-4-6 0s4 4 6 4" /><path d="M16 12c4 2 4 6 0 6s-4-4-4-6" /><path d="M16 12c4-2 4-6 0-6s-4 4-4 6" /><path d="M12 16c-2 4-6 4-6 0s4-4 6-4" /><path d="M12 16c2 4 6 4 6 0s-4-4-6-4" /><path d="M8 12c-4-2-4-6 0-6s4 4 4 6" /><path d="M8 12c-4 2-4 6 0 6s4-4 4-6" />
                     </svg>
                 </div>
                 <h3 className="text-xl font-bold text-emerald-950">{flower.name}</h3>
             </div>
 
+            {/* Hydration Progress */}
             <div className="space-y-2 mb-6">
                 <div className="flex justify-between items-end px-1">
                     <span className="text-[10px] font-bold uppercase tracking-tighter text-emerald-800/40">Hydration Level</span>
@@ -141,9 +123,35 @@ function FlowerItem({ flower }: Props) {
                 </div>
             </div>
 
+            <div className="grid grid-cols-2 gap-2 mb-4">
+                {/* Light Level Badge */}
+                <div className="flex items-center gap-2 px-3 py-2 bg-orange-50/50 rounded-2xl border border-orange-100/50">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="size-3.5 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+                    </svg>
+                    <span className="text-[10px] font-bold text-orange-700 uppercase tracking-tight">
+                        {lightLevels[flower.lightLevel]}
+                    </span>
+                </div>
+
+                {/* Soil Type Badge */}
+                <div className="flex items-center gap-2 px-3 py-2 bg-stone-100/60 rounded-2xl border border-stone-200/50">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                         stroke="currentColor" className="size-3.5 text-stone-500">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/>
+                    </svg>
+                    <span className="text-[10px] font-bold text-stone-700 uppercase tracking-tight">
+                        {soilTypes[flower.soilType]}
+                    </span>
+                </div>
+            </div>
+
+            {/* Watering Cycle Badge */}
             <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100">
-                    <span className="text-xs font-bold uppercase tracking-tight">Cycle: {flower.waterDuration} days</span>
+                <div
+                    className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100">
+                <span className="text-[10px] font-bold uppercase tracking-widest">Cycle: {flower.waterDuration} days</span>
                 </div>
             </div>
         </div>
