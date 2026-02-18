@@ -52,3 +52,24 @@ export const deleteFlower = asyncHandler(async (
 
     res.status(200).json(flower)
 })
+
+export const waterFlower = asyncHandler(async (
+    req: Request,
+    res: Response
+) => {
+    const id = req.params.id
+    const flower = await flowerModel.findOne({
+        _id: id,
+        user: req.user!.id
+    })
+
+    if (!flower) {
+        res.status(404)
+        throw new Error(`Flower with ID ${id} not found.`)
+    }
+
+    flower.lastWateredAt = new Date()
+    flower.save()
+
+    res.status(200).json(flower)
+})
