@@ -1,11 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
 import authReducer from "../features/auth/auth.slice.ts";
-import goalReducer from '../features/goal/goal.slice.ts'
+import flowerReducer from '../features/flower/flower.slice.ts'
 
 export const store = configureStore({
     reducer: {
         auth: authReducer,
-        goal: goalReducer
+        flower: flowerReducer
     }
 })
 
