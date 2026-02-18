@@ -9,7 +9,7 @@ function App() {
     return (
         <>
             <Router>
-                <div className={'max-w-xl mx-auto p-2'}>
+                <div className={'max-w-2xl mx-auto p-8'}>
                     <Header/>
                     <main className={'mt-4'}>
                         <Routes>

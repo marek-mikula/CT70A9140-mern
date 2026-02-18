@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks.ts";
 import FlowerForm from "../components/FlowerForm.tsx";
 import FlowerList from "../components/FlowerList.tsx";
+import WeatherStats from "../components/WeatherStats.tsx";
 
 function Dashboard() {
     const navigate = useNavigate()
@@ -21,7 +22,8 @@ function Dashboard() {
                 </h1>
             </header>
 
-            <div className="space-y-12">
+            <div className="space-y-8">
+                <WeatherStats/>
                 <FlowerForm />
                 <FlowerList />
             </div>

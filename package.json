@@ -20,5 +20,8 @@
   "workspaces": [
     "backend",
     "frontend"
-  ]
+  ],
+  "dependencies": {
+    "openmeteo": "^1.2.3"
+  }
 }

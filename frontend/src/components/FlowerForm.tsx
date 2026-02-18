@@ -36,8 +36,8 @@ function FlowerForm() {
     };
 
     return (
-        <div className="mx-auto max-w-md w-full">
-            <div className="bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-emerald-900/10 border border-emerald-100/50 overflow-hidden transition-all duration-500">
+        <section>
+            <div className="bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-emerald-900/10 border border-emerald-200/50 overflow-hidden transition-all duration-500">
 
                 {/* Toggle Header */}
                 <button
@@ -130,7 +130,7 @@ function FlowerForm() {
                     </form>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 
