@@ -5,35 +5,41 @@ import Spinner from "../components/Spinner.tsx";
 import FlowerItem from "./FlowerItem.tsx";
 
 function FlowerList() {
-    const dispatch = useAppDispatch();
-    const {
-        flowers,
-        isLoading,
-    } = useAppSelector((state) => state.flower);
+    const dispatch = useAppDispatch()
+    const { flowers, isLoading } = useAppSelector((state) => state.flower)
 
     useEffect(() => {
-        dispatch(listFlowers(null));
-
-        return () => {
-            dispatch(reset());
-        };
-    }, [dispatch]);
+        dispatch(listFlowers(null))
+        return () => { dispatch(reset()) }
+    }, [dispatch])
 
     // --- Garden Health Logic ---
     const thirstyFlowersCount = flowers.filter(flower => {
-        if (!flower.lastWateredAt) return true; // Needs first water
+        if (!flower.lastWateredAt) return true
+        const lastDate = new Date(flower.lastWateredAt).getTime()
+        const now = new Date().getTime()
+        const daysPassed = (now - lastDate) / (1000 * 60 * 60 * 24)
+        return daysPassed >= flower.waterDuration
+    }).length
 
-        const lastDate = new Date(flower.lastWateredAt).getTime();
-        const now = new Date().getTime();
-        const daysPassed = (now - lastDate) / (1000 * 60 * 60 * 24);
-
-        return daysPassed >= flower.waterDuration;
-    }).length;
-
-    const isGardenThirsty = thirstyFlowersCount > 0;
+    const isGardenThirsty = thirstyFlowersCount > 0
+    const isGardenEmpty = flowers.length === 0
 
     if (isLoading) {
-        return <Spinner />;
+        return <Spinner />
+    }
+
+    // Helper to determine styling based on garden state
+    const getIndicatorStyles = () => {
+        if (isGardenEmpty) return "bg-gray-50 border-gray-100 text-gray-500"
+        if (isGardenThirsty) return "bg-amber-50 border-amber-200 text-amber-700"
+        return "bg-emerald-50 border-emerald-100 text-emerald-700"
+    }
+
+    const getDotStyles = () => {
+        if (isGardenEmpty) return "bg-gray-300"
+        if (isGardenThirsty) return "bg-amber-500 animate-pulse"
+        return "bg-emerald-500"
     }
 
     return (
@@ -47,18 +53,15 @@ function FlowerList() {
                 </div>
 
                 {/* Dynamic Garden Indicator */}
-                <div className={`hidden sm:flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-500 ${
-                    isGardenThirsty
-                        ? 'bg-amber-50 border-amber-200'
-                        : 'bg-emerald-50 border-emerald-100'
-                }`}>
-                    <div className={`w-2 h-2 rounded-full animate-pulse ${
-                        isGardenThirsty ? 'bg-amber-500' : 'bg-emerald-500'
-                    }`}></div>
-                    <span className={`text-xs font-bold uppercase tracking-wider ${
-                        isGardenThirsty ? 'text-amber-700' : 'text-emerald-700'
-                    }`}>
-                        {isGardenThirsty ? `${thirstyFlowersCount} Thirsty Plants` : 'Garden Lush'}
+                <div className={`hidden sm:flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-500 ${getIndicatorStyles()}`}>
+                    <div className={`w-2 h-2 rounded-full ${getDotStyles()}`}></div>
+                    <span className="text-xs font-bold uppercase tracking-wider">
+                        {isGardenEmpty
+                            ? 'Garden Empty'
+                            : isGardenThirsty
+                                ? `${thirstyFlowersCount} Thirsty Plants`
+                                : 'Garden Lush'
+                        }
                     </span>
                 </div>
             </div>
@@ -81,7 +84,7 @@ function FlowerList() {
                 </div>
             )}
         </section>
-    );
+    )
 }
 
-export default FlowerList;
+export default FlowerList
