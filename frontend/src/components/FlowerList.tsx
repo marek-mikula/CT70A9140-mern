@@ -44,8 +44,8 @@ function FlowerList() {
 
     return (
         <section>
-            <div className="flex items-center justify-between mb-8">
-                <div>
+            <div className="flex items-center justify-between gap-2 mb-8">
+                <div className="flex-1">
                     <h2 className="text-2xl font-extrabold text-emerald-950">My Garden</h2>
                     <p className="text-emerald-600/60 font-medium">
                         You have {flowers.length} plants to tend to.
@@ -53,7 +53,7 @@ function FlowerList() {
                 </div>
 
                 {/* Dynamic Garden Indicator */}
-                <div className={`hidden sm:flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-500 ${getIndicatorStyles()}`}>
+                <div className={`hidden sm:flex items-center whitespace-nowrap gap-2 px-4 py-2 rounded-full border transition-all duration-500 ${getIndicatorStyles()}`}>
                     <div className={`w-2 h-2 rounded-full ${getDotStyles()}`}></div>
                     <span className="text-xs font-bold uppercase tracking-wider">
                         {isGardenEmpty

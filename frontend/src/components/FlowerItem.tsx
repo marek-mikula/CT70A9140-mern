@@ -27,7 +27,7 @@ function FlowerItem({ flower }: Props) {
 
     const getWateringStatus = (): WaterStatus => {
         if (!flower.lastWateredAt) {
-            return { needsAttention: true, label: "Needs First Water", color: "amber", percent: 0, daysLeft: 0 };
+            return { needsAttention: true, label: "Needs First Water", color: "amber", percent: 0, daysLeft: 0 }
         }
 
         const lastDate = new Date(flower.lastWateredAt).getTime()
@@ -125,6 +125,14 @@ function FlowerItem({ flower }: Props) {
 
             {/* Unified Attributes Section */}
             <div className="flex flex-wrap items-center gap-2">
+                {/* Room Location */}
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50/50 text-indigo-700 rounded-xl border border-indigo-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    <span className="text-[10px] font-bold uppercase tracking-tight">{flower.room || 'No Room'}</span>
+                </div>
+
                 {/* Light */}
                 <div className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-50/50 text-yellow-700 rounded-xl border border-yellow-200">
                     <svg xmlns="http://www.w3.org/2000/svg" className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -134,19 +142,15 @@ function FlowerItem({ flower }: Props) {
                 </div>
 
                 {/* Soil */}
-                <div
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-100/60 text-stone-700 rounded-xl border border-stone-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                         stroke="currentColor" className="size-3">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-100/60 text-stone-700 rounded-xl border border-stone-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/>
                     </svg>
                     <span className="text-[10px] font-bold uppercase tracking-tight">{soilTypes[flower.soilType]}</span>
                 </div>
 
                 {/* Cycle */}
-                <div
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-xl border border-blue-200">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-xl border border-blue-200">
                     <svg xmlns="http://www.w3.org/2000/svg" className="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M21 12a9 9 0 1 1-6.219-8.56" /><path d="M22 2v6h-6" />
                     </svg>
