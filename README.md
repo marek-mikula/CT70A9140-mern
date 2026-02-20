@@ -15,7 +15,7 @@ This project represents the final project of the course CT70A9140 - Software Dev
 cp .env.example .env
 ```
 
-Fill in the variables. Most importantly, the **password to DB** and **JWT secret**.
+Fill in the variables. Most importantly, the **password to DB** and **JWT secret**. Use this [link](https://www.random.org/strings/?num=2&len=32&digits=on&upperalpha=on&loweralpha=on&unique=on&format=html&rnd=new) to generate the passwords.
 
 2. Run the containers
 
