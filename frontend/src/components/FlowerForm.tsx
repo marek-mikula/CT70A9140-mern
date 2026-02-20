@@ -1,39 +1,42 @@
-import { useState, type FormEvent } from "react";
+import { useState, type SubmitEvent } from "react";
 import { useAppDispatch } from "../app/hooks.ts";
 import { storeFlower } from "../features/flower/flower.slice.ts";
 import {lightLevels, soilTypes} from "../features/flower/flower.type.ts";
 
 function FlowerForm() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [name, setName] = useState('');
-    const [waterDuration, setWaterDuration] = useState('');
-    const [lightLevel, setLightLevel] = useState('medium');
-    const [soilType, setSoilType] = useState('peat_moss');
-    const [error, setError] = useState('');
+    const [isOpen, setIsOpen] = useState(false)
+    const [name, setName] = useState('')
+    const [waterDuration, setWaterDuration] = useState('')
+    const [lightLevel, setLightLevel] = useState('medium')
+    const [soilType, setSoilType] = useState('peat_moss')
+    const [room, setRoom] = useState('')
+    const [error, setError] = useState('')
 
-    const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch()
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = (e: SubmitEvent) => {
+        e.preventDefault()
 
         if (!name.trim() || !waterDuration.trim() || !lightLevel || !soilType) {
-            setError('Please fill in all required fields.');
-            return;
+            setError('Please fill in all required fields.')
+            return
         }
 
-        setError('');
-        setName('');
-        setWaterDuration('');
-        setLightLevel('medium');
-        setSoilType('standard');
+        setError('')
+        setName('')
+        setWaterDuration('')
+        setLightLevel('medium')
+        setSoilType('standard')
+        setRoom('')
 
         dispatch(storeFlower({
             name: name.trim(),
             waterDuration: Number(waterDuration),
             lightLevel,
-            soilType
-        }));
-    };
+            soilType,
+            room,
+        }))
+    }
 
     return (
         <section>
@@ -67,9 +70,11 @@ function FlowerForm() {
                     <form onSubmit={handleSubmit} className="px-8 pb-8 space-y-4 border-t border-emerald-50/50 pt-6">
 
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Flower Name</label>
+                            <label htmlFor="name" className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Flower Name</label>
                             <input
-                                type="text" value={name} onChange={(e) => setName(e.target.value)}
+                                id="name"
+                                type="text"
+                                value={name} onChange={(e) => setName(e.target.value)}
                                 placeholder="Monstera Deliciosa"
                                 className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 placeholder:text-emerald-300 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none"
                                 required
@@ -77,10 +82,26 @@ function FlowerForm() {
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Water Every (Days)</label>
+                            <label htmlFor="room" className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Flower Name</label>
+                            <input
+                                id="room"
+                                type="text"
+                                value={room} onChange={(e) => setRoom(e.target.value)}
+                                placeholder="Living room"
+                                className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 placeholder:text-emerald-300 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none"
+                                required
+                            />
+                        </div>
+
+                        <div className="flex flex-col gap-1.5">
+                            <label htmlFor="waterDuration" className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Water Every (Days)</label>
                             <div className="relative">
                                 <input
-                                    type="number" min="1" value={waterDuration} onChange={(e) => setWaterDuration(e.target.value)}
+                                    id="waterDuration"
+                                    type="number"
+                                    min="1"
+                                    value={waterDuration}
+                                    onChange={(e) => setWaterDuration(e.target.value)}
                                     placeholder="7"
                                     className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none number-input-no-spin"
                                     required
@@ -90,8 +111,9 @@ function FlowerForm() {
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Light Level</label>
+                            <label htmlFor="lightLevel" className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Light Level</label>
                             <select
+                                id="lightLevel"
                                 value={lightLevel}
                                 onChange={(e) => setLightLevel(e.target.value)}
                                 className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none appearance-none cursor-pointer"
@@ -103,8 +125,9 @@ function FlowerForm() {
                         </div>
 
                         <div className="flex flex-col gap-1.5">
-                            <label className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Soil Type</label>
+                            <label htmlFor="soilType" className="text-xs font-bold uppercase tracking-widest text-emerald-700/50 ml-5">Soil Type</label>
                             <select
+                                id="soilType"
                                 value={soilType}
                                 onChange={(e) => setSoilType(e.target.value)}
                                 className="w-full px-6 py-4 bg-emerald-50/50 border border-emerald-100/50 rounded-[1.5rem] text-emerald-900 focus:ring-4 focus:ring-emerald-400/10 focus:bg-white transition-all outline-none appearance-none cursor-pointer"
@@ -131,7 +154,7 @@ function FlowerForm() {
                 </div>
             </div>
         </section>
-    );
+    )
 }
 
 export default FlowerForm;

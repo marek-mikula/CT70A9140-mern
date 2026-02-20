@@ -30,15 +30,15 @@ function FlowerItem({ flower }: Props) {
             return { needsAttention: true, label: "Needs First Water", color: "amber", percent: 0, daysLeft: 0 };
         }
 
-        const lastDate = new Date(flower.lastWateredAt).getTime();
-        const now = new Date().getTime();
-        const daysPassed = (now - lastDate) / (1000 * 60 * 60 * 24);
+        const lastDate = new Date(flower.lastWateredAt).getTime()
+        const now = new Date().getTime()
+        const daysPassed = (now - lastDate) / (1000 * 60 * 60 * 24)
 
-        const percentRemaining = Math.max(0, Math.min(100, ((flower.waterDuration - daysPassed) / flower.waterDuration) * 100));
-        const daysLeft = Math.max(0, Math.ceil(flower.waterDuration - daysPassed));
+        const percentRemaining = Math.max(0, Math.min(100, ((flower.waterDuration - daysPassed) / flower.waterDuration) * 100))
+        const daysLeft = Math.max(0, Math.ceil(flower.waterDuration - daysPassed))
 
         if (daysPassed >= flower.waterDuration) {
-            return { needsAttention: true, label: "Thirsty", color: "amber", percent: 0, daysLeft: 0 };
+            return { needsAttention: true, label: "Thirsty", color: "amber", percent: 0, daysLeft: 0 }
         }
 
         return {
@@ -47,10 +47,10 @@ function FlowerItem({ flower }: Props) {
             color: "emerald",
             percent: percentRemaining,
             daysLeft: daysLeft
-        };
-    };
+        }
+    }
 
-    const status = getWateringStatus();
+    const status = getWateringStatus()
 
     return (
         <div className={`group bg-white/70 backdrop-blur-md p-6 rounded-[2rem] border transition-all duration-300 shadow-xl ${
@@ -154,7 +154,7 @@ function FlowerItem({ flower }: Props) {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default FlowerItem;
+export default FlowerItem

@@ -8,9 +8,9 @@ function Login() {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-    });
+    })
 
-    const [error, setError] = useState('');
+    const [error, setError] = useState('')
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
@@ -38,17 +38,17 @@ function Login() {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
-        });
-    };
+        })
+    }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setError('');
+        e.preventDefault()
+        setError('')
         dispatch(login({
             email: formData.email,
             password: formData.password,
         }))
-    };
+    }
 
     if (isLoading) {
         return <Spinner />
@@ -132,7 +132,7 @@ function Login() {
                 </p>
             </div>
         </div>
-    );
+    )
 }
 
 export default Login

@@ -21,8 +21,9 @@ export const storeFlower = asyncHandler(async (
     const waterDuration = req.body.waterDuration
     const lightLevel = req.body.lightLevel
     const soilType = req.body.soilType
+    const room = req.body.room
 
-    if (!name || !waterDuration || !lightLevel || !soilType) {
+    if (!name || !waterDuration || !lightLevel || !soilType || !room) {
         res.status(400)
         throw new Error('Invalid data.')
     }
@@ -33,6 +34,7 @@ export const storeFlower = asyncHandler(async (
         waterDuration,
         lightLevel,
         soilType,
+        room,
         lastWateredAt: null,
     })
 

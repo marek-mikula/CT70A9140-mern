@@ -3,8 +3,9 @@ export interface Flower {
     user: string
     name: string
     waterDuration: number
-    lightLevel: 'low' | 'medium' | 'bright',
-    soilType: 'standard' | 'cactus_succulent' | 'peat_moss' | 'orchid_bark',
+    lightLevel: 'low' | 'medium' | 'bright'
+    soilType: 'standard' | 'cactus_succulent' | 'peat_moss' | 'orchid_bark'
+    room: string
     lastWateredAt: string | null
     createdAt: string
     updatedAt: string
@@ -15,6 +16,7 @@ export interface StoreFlowerData {
     waterDuration: number
     lightLevel: string
     soilType: string
+    room: string
 }
 
 export const lightLevels = {

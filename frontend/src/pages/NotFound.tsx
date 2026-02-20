@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 
 const NotFound = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     return (
         <div className="flex items-center justify-center min-h-[70vh] px-4">
@@ -53,7 +53,7 @@ const NotFound = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default NotFound;
+export default NotFound

@@ -5,8 +5,9 @@ export interface Flower {
     user: string
     name: string
     waterDuration: number
-    lightLevel: 'low' | 'medium' | 'bright',
-    soilType: 'standard' | 'cactus_succulent' | 'peat_moss' | 'orchid_bark',
+    lightLevel: 'low' | 'medium' | 'bright'
+    soilType: 'standard' | 'cactus_succulent' | 'peat_moss' | 'orchid_bark'
+    room: string
     lastWateredAt: Date|null
     createdAt: Date
     updatedAt: Date
@@ -44,9 +45,13 @@ const schema = new Schema({
             'orchid_bark',
         ],
     },
+    room: {
+        type: String,
+        required: [true, 'Please add a room.'],
+    },
     lastWateredAt: {
         type: Date,
-    }
+    },
 }, {
     timestamps: true,
 })

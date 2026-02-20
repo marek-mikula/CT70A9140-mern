@@ -12,7 +12,7 @@ function Dashboard() {
 
     useEffect(() => {
         if (!user) navigate('/login')
-    }, [user, navigate, dispatch]);
+    }, [user, navigate, dispatch])
 
     return (
         <main className="pb-20">

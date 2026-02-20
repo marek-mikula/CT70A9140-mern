@@ -10,9 +10,9 @@ function Register() {
         email: '',
         password: '',
         confirmPassword: '',
-    });
+    })
 
-    const [error, setError] = useState('');
+    const [error, setError] = useState('')
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
@@ -40,25 +40,25 @@ function Register() {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
-        });
-    };
+        })
+    }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        e.preventDefault()
 
         if (formData.password !== formData.confirmPassword) {
-            setError("Passwords do not match!");
-            return;
+            setError("Passwords do not match!")
+            return
         }
 
-        setError('');
+        setError('')
 
         dispatch(register({
             name: formData.name,
             email: formData.email,
             password: formData.password,
         }))
-    };
+    }
 
     if (isLoading) {
         return <Spinner />
@@ -176,7 +176,7 @@ function Register() {
                 </p>
             </div>
         </div>
-    );
+    )
 }
 
 export default Register
